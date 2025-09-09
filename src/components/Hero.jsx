@@ -50,12 +50,12 @@ export default function HeroSection() {
         />
       ))}
       {/* Left Side: Logo Animation */}
-      {/* Left Side: Logo */}
+    
 <motion.div
   initial={{ opacity: 0, scale: 0.93, x: -60, rotate: -10 }}
   animate={{ opacity: 1, scale: 1, x: 0, rotate: 0 }}
   transition={{ duration: 1, ease: "easeOut" }}
-  whileHover={{ scale: 1.025, boxShadow: "0 10px 32px 0 rgba(58,0,180,0.12)", y: -6 }}
+  whileHover={{ scale: 1.025, y: -6 }}
   className="w-full md:w-2/5 flex justify-center items-center relative z-10"
 >
   <motion.img
@@ -83,7 +83,7 @@ export default function HeroSection() {
       style={{ fontFamily: "sans-serif" }}
     >
       {word}
-      {/* Removed the animated underline block here */}
+     
     </motion.h1>
   </motion.div>
 ))}

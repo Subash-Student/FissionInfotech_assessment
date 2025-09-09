@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { useTheme } from "../context/ThemeContext";
 
-// Brand logos (replace with actual paths or URLs)
+
 const brands = [
   { name: "bmw", src: "/logos/bmw.png", darkSrc: "/logos/bmw-tp.png" },
   { name: "Star", src: "/logos/star.png", darkSrc: "/logos/star-tp.png" },

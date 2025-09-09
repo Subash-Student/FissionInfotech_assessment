@@ -63,7 +63,7 @@ export default function Navbar() {
             <nav className="flex justify-between items-center px-10 py-4">
                 {/* Logo */}
                 <motion.img
-                    src="logo_img.png" // Replace with your actual logo path
+                    src="logo_img.png" 
                     alt="Leo9 Logo"
                     className="w-15 h-12 object-contain cursor-pointer select-none"
                     whileHover={{ scale: 1.2 }}
