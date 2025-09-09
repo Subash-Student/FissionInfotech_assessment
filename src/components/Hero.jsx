@@ -19,7 +19,7 @@ const headlineVariants = {
 
 export default function HeroSection() {
   return (
-    <section className="relative flex flex-col md:flex-row items-center justify-center min-h-[80vh] px-6 py-12 bg-white overflow-hidden">
+    <section className="relative flex flex-col md:flex-row items-center justify-center min-h-[80vh] px-6 py-0 bg-white overflow-hidden">
       {/* Animated Gradient Orb */}
       <motion.div
         className="absolute left-[10%] top-[15%] w-[320px] h-[320px] rounded-full bg-gradient-to-br from-purple-300 to-blue-300 filter blur-2xl z-0"
