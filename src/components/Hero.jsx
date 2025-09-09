@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { useTheme } from "../context/ThemeContext";
 
 const headlineWords = ["Design", "Transform", "Accelerate"];
 const headlineVariants = {
@@ -18,8 +19,10 @@ const headlineVariants = {
 };
 
 export default function HeroSection() {
+  const { darkTheme } = useTheme();
+  
   return (
-    <section className="relative flex flex-col md:flex-row items-center justify-center min-h-[80vh] px-6 py-0 bg-white overflow-hidden">
+    <section className={`relative flex flex-col md:flex-row items-center justify-center min-h-[80vh] px-6 py-0 ${darkTheme ? 'bg-black' : 'bg-white'} overflow-hidden transition-colors duration-300`}>
       {/* Animated Gradient Orb */}
       <motion.div
         className="absolute left-[10%] top-[15%] w-[320px] h-[320px] rounded-full bg-gradient-to-br from-purple-300 to-blue-300 filter blur-2xl z-0"
@@ -56,7 +59,7 @@ export default function HeroSection() {
   className="w-full md:w-2/5 flex justify-center items-center relative z-10"
 >
   <motion.img
-    src="/team.jpg"
+    src= {`${!darkTheme ? "hero.png" : "hero-tp.png"}`}
     alt="Logo"
     className="w-[520px] h-[300px] object-contain shadow-md rounded-lg"
     initial={{ opacity: 0, scale: 0.90 }}
@@ -76,7 +79,7 @@ export default function HeroSection() {
       variants={headlineVariants}
       initial="hidden"
       animate="visible"
-      className="text-5xl md:text-7xl font-black text-black leading-none mb-2"
+      className={`text-5xl md:text-7xl font-black ${darkTheme ? 'text-white' : 'text-black'} leading-none mb-2 transition-colors duration-300`}
       style={{ fontFamily: "sans-serif" }}
     >
       {word}
@@ -91,7 +94,7 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 38 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.85, type: "spring", stiffness: 160, damping: 21 }}
-          className="mt-7 text-xl md:text-2xl font-medium text-black"
+          className={`mt-7 text-xl md:text-2xl font-medium ${darkTheme ? 'text-white' : 'text-black'} transition-colors duration-300`}
           style={{ fontFamily: "sans-serif" }}
         >
           Redefining user experiences through <br />
@@ -102,7 +105,7 @@ export default function HeroSection() {
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 1.3, duration: 0.56 }}
-          className="mt-3 text-md md:text-lg text-gray-500"
+          className={`mt-3 text-md md:text-lg ${darkTheme ? 'text-gray-300' : 'text-gray-500'} transition-colors duration-300`}
         >
           Trusted by <motion.span
             initial={{ opacity: 0, scale: 0.85 }}
@@ -125,7 +128,7 @@ export default function HeroSection() {
             boxShadow: "0 8px 32px -4px rgba(56,66,230,0.08)"
           }}
           whileTap={{ scale: 0.97 }}
-          className="mt-10 px-7 py-3 bg-black text-white rounded-full text-lg font-semibold shadow hover:shadow-md transition-all"
+          className={`mt-10 px-7 py-3 ${darkTheme ? 'bg-white hover:bg-gray-200 text-black' : 'bg-black hover:bg-gray-800 text-white'} rounded-full text-lg font-semibold shadow hover:shadow-md transition-all`}
         >
           Explore More
         </motion.button>

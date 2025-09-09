@@ -1,22 +1,24 @@
 import React, { useState } from "react";
 import { motion, useAnimation } from "framer-motion";
+import { useTheme } from "../context/ThemeContext";
 
 // Brand logos (replace with actual paths or URLs)
 const brands = [
-  { name: "bmw", src: "/logos/bmw.png" },
-  { name: "Star", src: "/logos/star.png" },
-  { name: "sony", src: "/logos/sony.png" },
-  { name: "Indium", src: "/logos/indium.png" },
-  { name: "Kimiric", src: "/logos/kimirica.png" },
-  { name: "TATA", src: "/logos/tata.png" },
-  { name: "Kpit", src: "/logos/kpit.png" },
-  { name: "Choice", src: "/logos/choice.png" },
-  { name: "Eton", src: "/logos/eton.png" },
+  { name: "bmw", src: "/logos/bmw.png", darkSrc: "/logos/bmw-tp.png" },
+  { name: "Star", src: "/logos/star.png", darkSrc: "/logos/star-tp.png" },
+  { name: "sony", src: "/logos/sony.png", darkSrc: "/logos/sony-tp.png" },
+  { name: "Indium", src: "/logos/indium.png", darkSrc: "/logos/indium-tp.png" },
+  { name: "Kimiric", src: "/logos/kimirica.png", darkSrc: "/logos/kimirica-tp.png" },
+  { name: "TATA", src: "/logos/tata.png", darkSrc: "/logos/tata-tp.png" },
+  { name: "Kpit", src: "/logos/kpit.png", darkSrc: "/logos/kpit-tp.png" },
+  { name: "Choice", src: "/logos/choice.png", darkSrc: "/logos/choice-tp.png" },
+  { name: "Eton", src: "/logos/eton.png", darkSrc: "/logos/eton-tp.png" },
 ];
 
 export default function TrustedBrands() {
   const controls = useAnimation();
   const [isHovered, setIsHovered] = useState(false);
+  const { darkTheme } = useTheme();
 
   // Start or stop animation based on hover
   React.useEffect(() => {
@@ -35,15 +37,15 @@ export default function TrustedBrands() {
   }, [isHovered, controls]);
 
   return (
-    <section className="w-full bg-white py-4 px-6 overflow-hidden">
+    <section className={`w-full ${darkTheme ? 'bg-black' : 'bg-white'} py-4 px-6 overflow-hidden transition-colors duration-300`}>
       <div className="flex items-center justify-between max-w-7xl mx-auto">
         {/* Left Text */}
-        <div className="flex-shrink-0 text-black text-xl md:text-2xl font-light pr-6">
+        <div className={`flex-shrink-0 ${darkTheme ? 'text-white' : 'text-black'} text-xl md:text-2xl font-light pr-6 transition-colors duration-300`}>
           Your trusted UI/UX design agency.
         </div>
 
         {/* Divider */}
-        <div className="h-12 w-[1px] bg-black mx-4 hidden md:block" />
+        <div className={`h-12 w-[1px] ${darkTheme ? 'bg-white' : 'bg-black'} mx-4 hidden md:block transition-colors duration-300`} />
 
         {/* Scrolling Logos */}
         <div className="relative w-full overflow-hidden">
@@ -54,7 +56,7 @@ export default function TrustedBrands() {
             {[...brands, ...brands].map((brand, index) => (
               <motion.img
                 key={index}
-                src={brand.src}
+                src={darkTheme ? brand.darkSrc : brand.src}
                 alt={brand.name}
                 className="h-10 w-auto object-contain cursor-pointer"
                 whileHover={{ scale: 1.3 }}
