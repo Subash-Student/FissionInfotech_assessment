@@ -1,6 +1,6 @@
-import Hero from './components/Hero'
-import Navbar from './components/Navbar'
-import TrustedBrands from './components/TrustedBrands'
+import Hero from './components/Hero.jsx'
+import Navbar from './components/Navbar.jsx'
+import TrustedBrands from './components/TrustedBrands.jsx'
 import { useTheme } from './context/ThemeContext'
 
 function App() {

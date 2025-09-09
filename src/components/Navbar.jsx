@@ -57,7 +57,11 @@ export default function Navbar() {
         <motion.div
             animate={{ height: hasDropdown ? "auto" : "auto" }}
             transition={{ duration: 0.3 }}
-            className="relative w-full z-50 border-b border-gray-300 bg-white text-black"
+            className={`relative w-full z-50 border-b transition-colors duration-300 ${
+                darkTheme 
+                    ? 'border-gray-700 bg-black text-white' 
+                    : 'border-gray-300 bg-white text-black'
+            }`}
         >
             {/* NAVBAR */}
             <nav className="flex justify-evenly items-center px-10 py-4">
@@ -89,8 +93,9 @@ export default function Navbar() {
                             >
                                 {showDropdownDot && (
                                     <span
-                                        className={`w-3 h-3 rounded-full ${active ? "bg-pink-500" : "bg-black"
-                                            }`}
+                                        className={`w-3 h-3 rounded-full ${
+                                            active ? "bg-pink-500" : (darkTheme ? "bg-white" : "bg-black")
+                                        }`}
                                         aria-hidden="true"
                                     />
                                 )}
@@ -111,9 +116,9 @@ export default function Navbar() {
                    title={darkTheme ? "Switch to Light Mode" : "Switch to Dark Mode"}
                  >
                    {darkTheme ? (
-                     <MoonIcon className="text-black w-6 h-6" />
+                     <MoonIcon className="text-white w-6 h-6" />
                    ) : (
-                     <SunIcon className="text-yellow-300 w-6 h-6" />
+                     <SunIcon className="text-yellow-500 w-6 h-6" />
                    )}
                  </motion.button>
 
@@ -125,7 +130,9 @@ export default function Navbar() {
                         }}
                         whileTap={{ scale: 0.95 }}
                         transition={{ type: "spring", stiffness: 300 }}
-                        className="px-5 py-3 rounded-md font-bold text-xl select-none bg-black text-white"
+                        className={`px-5 py-3 rounded-md font-bold text-xl select-none transition-colors duration-300 ${
+                            darkTheme ? 'bg-white text-black' : 'bg-black text-white'
+                        }`}
                     >
                         Contact
                     </motion.button>
@@ -141,7 +148,9 @@ export default function Navbar() {
                         initial="hidden"
                         animate="visible"
                         exit="exit"
-                        className="flex justify-center gap-6 px-10 pb-8 backdrop-blur-md bg-white/80"
+                        className={`flex justify-center gap-6 px-10 pb-8 backdrop-blur-md transition-colors duration-300 ${
+                            darkTheme ? 'bg-black/80' : 'bg-white/80'
+                        }`}
                         onMouseLeave={() => setActiveMenu(null)}
                     >
                         {menuItems

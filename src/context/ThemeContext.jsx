@@ -11,15 +11,18 @@ export const useTheme = () => {
 };
 
 export const ThemeProvider = ({ children }) => {
-  const [darkTheme, setDarkTheme] = useState(() => {
-    // Check localStorage for saved theme preference
+  const [darkTheme, setDarkTheme] = useState(false);
+
+  useEffect(() => {
+    // Initialize theme after component mounts (client-side only)
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
-      return savedTheme === 'dark';
+      setDarkTheme(savedTheme === 'dark');
+    } else {
+      // Check system preference
+      setDarkTheme(window.matchMedia('(prefers-color-scheme: dark)').matches);
     }
-    // Check system preference
-    return window.matchMedia('(prefers-color-scheme: dark)').matches;
-  });
+  }, []);
 
   useEffect(() => {
     // Apply theme to document
