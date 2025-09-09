@@ -60,7 +60,7 @@ export default function Navbar() {
             className="relative w-full z-50 border-b border-gray-300 bg-white text-black"
         >
             {/* NAVBAR */}
-            <nav className="flex justify-between items-center px-10 py-4">
+            <nav className="flex justify-evenly items-center px-10 py-4">
                 {/* Logo */}
                 <motion.img
                     src="logo_img.png" 
