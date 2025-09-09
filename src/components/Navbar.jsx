@@ -1,10 +1,6 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { SunIcon, MoonIcon } from "@heroicons/react/24/solid";
-
-// Assume a context is setup elsewhere in your app like:
-// const ThemeContext = React.createContext({ isDarkMode: false, setIsDarkMode: () => {} });
-import { ThemeContext } from "./ThemeContext"; // adjust path accordingly
 
 const menuItems = [
   {
@@ -51,8 +47,12 @@ const dropdownItemVariants = {
 };
 
 export default function Navbar() {
-  const { isDarkMode, setIsDarkMode } = useContext(ThemeContext);
   const [activeMenu, setActiveMenu] = useState(null);
+  const [darkTheme, setDarkTheme] = useState(false);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", darkTheme);
+  }, [darkTheme]);
 
   const hasDropdown = !!activeMenu;
 
@@ -61,11 +61,11 @@ export default function Navbar() {
       animate={{ height: hasDropdown ? "auto" : "auto" }}
       transition={{ duration: 0.3 }}
       className={`relative w-full z-50 border-b ${
-        isDarkMode ? "border-white/20 bg-gray-900 text-white" : "border-gray-300 bg-white text-black"
+        darkTheme ? "border-white/20 bg-gray-900 text-white" : "border-gray-300 bg-white text-black"
       }`}
     >
       {/* NAVBAR */}
-      <nav className="flex justify-evenly items-center px-10 py-4">
+      <nav className="flex justify-between items-center px-10 py-4">
         {/* Logo */}
         <motion.img
           src="logo_img.png" // Replace with your actual logo path
@@ -78,28 +78,28 @@ export default function Navbar() {
         {/* Menu */}
         <ul className="flex gap-6 font-semibold text-lg relative">
           {["Work", "Services", "Clients", "About", "Knowledge"].map((title) => {
-            const showDot = ["Services", "About"].includes(title);
+            const showDropdownDot = ["Services", "About"].includes(title);
             const active = activeMenu === title;
             return (
               <motion.li
                 key={title}
-                className={`cursor-pointer select-none transition-colors flex items-center hover:text-pink-500 ${
+                className={`cursor-pointer select-none transition-colors flex items-center gap-1 hover:text-pink-500 ${
                   active ? "text-pink-500 font-extrabold underline underline-offset-4" : ""
                 }`}
                 onMouseEnter={() => {
-                  if (showDot) setActiveMenu(title);
+                  if (showDropdownDot) setActiveMenu(title);
                   else setActiveMenu(null);
                 }}
                 whileHover={{ scale: 1.08 }}
                 whileTap={{ scale: 0.95 }}
               >
-                {/* Small Dot Instead of Dropdown Icon */}
-                {showDot && (
+                {showDropdownDot && (
                   <span
-                    className={`w-2 h-2 rounded-full mr-2 ${
-                      isDarkMode ? "bg-white" : "bg-black"
+                    className={`w-3 h-3 rounded-full ${
+                      active ? "bg-pink-500" : "bg-black dark:bg-white"
                     }`}
-                  ></span>
+                    aria-hidden="true"
+                  />
                 )}
                 {title}
               </motion.li>
@@ -111,29 +111,29 @@ export default function Navbar() {
         <div className="flex items-center gap-4">
           <motion.button
             aria-label="Toggle theme"
-            onClick={() => setIsDarkMode(!isDarkMode)}
+            onClick={() => setDarkTheme((prev) => !prev)}
             className="p-2 rounded-full cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2"
             whileHover={{ rotate: 20, scale: 1.2 }}
             whileTap={{ rotate: 0, scale: 0.9 }}
-            title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+            title={darkTheme ? "Switch to Light Mode" : "Switch to Dark Mode"}
           >
-            {isDarkMode ? (
-              <MoonIcon className="text-white w-6 h-6" />
+            {darkTheme ? (
+              <MoonIcon className="text-gray-300 w-6 h-6" />
             ) : (
-              <SunIcon className="text-gray-700 w-6 h-6" />
+              <SunIcon className="text-yellow-300 w-6 h-6" />
             )}
           </motion.button>
 
           <motion.button
             whileHover={{
               scale: 1.1,
-              backgroundColor: isDarkMode ? "#a78bfa" : "#7c3aed",
+              backgroundColor: darkTheme ? "#a78bfa" : "#7c3aed",
               boxShadow: "0 4px 15px rgba(124, 58, 237, 0.6)",
             }}
             whileTap={{ scale: 0.95 }}
             transition={{ type: "spring", stiffness: 300 }}
             className={`px-5 py-3 rounded-md font-bold text-xl select-none ${
-              isDarkMode ? "bg-purple-700 text-white" : "bg-black text-white"
+              darkTheme ? "bg-purple-700 text-white" : "bg-black text-white"
             }`}
           >
             Contact
@@ -151,7 +151,7 @@ export default function Navbar() {
             animate="visible"
             exit="exit"
             className={`flex justify-center gap-6 px-10 pb-8 backdrop-blur-md ${
-              isDarkMode ? "bg-gray-800/90" : "bg-white/80"
+              darkTheme ? "bg-gray-800/90" : "bg-white/80"
             }`}
             onMouseLeave={() => setActiveMenu(null)}
           >
@@ -167,7 +167,7 @@ export default function Navbar() {
                   transition={{ delay: i * 0.1 }}
                   whileHover={{
                     scale: 1.03,
-                    boxShadow: isDarkMode
+                    boxShadow: darkTheme
                       ? "0 10px 20px rgba(255 255 255 / 0.4)"
                       : "0 10px 20px rgb(124 58 237 / 0.4)",
                   }}
