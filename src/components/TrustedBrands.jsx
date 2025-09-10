@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { useTheme } from "../context/ThemeContext";
 
-
 const brands = [
   { name: "bmw", src: "/logos/bmw.png", darkSrc: "/logos/bmw-tp.png" },
   { name: "Star", src: "/logos/star.png", darkSrc: "/logos/star-tp.png" },
@@ -37,20 +36,28 @@ export default function TrustedBrands() {
   }, [isHovered, controls]);
 
   return (
-    <section className={`w-full ${darkTheme ? 'bg-black' : 'bg-white'} py-4 px-6 overflow-hidden transition-colors duration-300`}>
-      <div className="flex items-center justify-between max-w-7xl mx-auto">
+    <section
+      className={`w-full ${darkTheme ? "bg-black" : "bg-white"} py-4 px-4 sm:px-6 md:px-10 overflow-hidden transition-colors duration-300`}
+    >
+      <div className="flex flex-col md:flex-row items-center max-w-7xl mx-auto gap-4 md:gap-6">
         {/* Left Text */}
-        <div className={`flex-shrink-0 ${darkTheme ? 'text-white' : 'text-black'} text-xl md:text-2xl font-light pr-6 transition-colors duration-300`}>
+        <div
+          className={`flex-shrink-0 ${
+            darkTheme ? "text-white" : "text-black"
+          } text-lg md:text-xl font-light pr-0 md:pr-6 transition-colors duration-300 text-center md:text-left w-full md:w-auto`}
+        >
           Your trusted UI/UX design agency.
         </div>
 
         {/* Divider */}
-        <div className={`h-12 w-[1px] ${darkTheme ? 'bg-white' : 'bg-black'} mx-4 hidden md:block transition-colors duration-300`} />
+        <div
+          className={`h-12 w-[1px] ${darkTheme ? "bg-white" : "bg-black"} mx-4 hidden md:block transition-colors duration-300`}
+        />
 
         {/* Scrolling Logos */}
         <div className="relative w-full overflow-hidden">
           <motion.div
-            className="flex gap-12 items-center"
+            className="flex gap-8 sm:gap-12 items-center whitespace-nowrap"
             animate={controls}
           >
             {[...brands, ...brands].map((brand, index) => (
@@ -58,7 +65,7 @@ export default function TrustedBrands() {
                 key={index}
                 src={darkTheme ? brand.darkSrc : brand.src}
                 alt={brand.name}
-                className="h-10 w-auto object-contain cursor-pointer"
+                className="h-8 sm:h-10 w-auto object-contain cursor-pointer"
                 whileHover={{ scale: 1.3 }}
                 onHoverStart={() => setIsHovered(true)}
                 onHoverEnd={() => setIsHovered(false)}
